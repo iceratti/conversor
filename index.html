@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONVERSOR DE HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* A imagem de fundo ficará atrás de todos os outros elementos */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            position: relative;
+            background-color: #f0f4f8;
+        }
+
+     body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.ufsm.br/app/uploads/sites/344/2024/11/AN1_8732-2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Colocando a imagem atrás de todos os outros elementos */
+    opacity: 0.9; /* A imagem ficará com 50% de transparência */
+}
+
+        .container {
+            max-width: 1050px;
+            margin: 50px auto;
+            background-color: rgba(64, 63, 59, 0.5); /* Novo fundo com 60% de transparência, ajuster o último item */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;   
+        }
+
+        .logo {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+            color: #c99436;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 25px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+            color: #0168A6;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            color: #FAFAFA;
+          
+        }
+
+       h4 {
+            text-align: center;
+            color: #000;
+        }
+        .editor {
+            width: 100%;
+            height: 350px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            resize: vertical;
+            background-color: #f5f7fa;
+            text-align: justify;
+            outline: none;
+            overflow: auto;
+            word-wrap: break-word;
+        }
+
+        .toolbar-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 3px; /* Adicionando espaçamento entre os botões */
+        }
+
+        .toolbar, .alignment-bar, .indent-bar, .color-bar {
+            display: flex;
+            gap: 5px; /* Espaçamento entre os botões */
+        }
+
+        .toolbar button, .alignment-bar button, .indent-bar button, .color-bar button {
+            padding: 10px 15px;
+            font-size: 10px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #E9F9FF;
+            color: black;
+            transition: background-color 0.3s ease;
+            height: 30px; /* Definindo altura fixa para todos os botões */
+        }
+
+        .toolbar button:hover, .alignment-bar button:hover, .indent-bar button:hover, .color-bar button:hover {
+            background-color: #3498db;
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: #ccc;
+        }
+
+        .output-container {
+            margin-top: 20px;
+        }
+
+        .code-output {
+            border: 1px solid #ddd;
+            padding: 12px;border-radius: 10px;
+            background-color: #fafafa;
+            min-height: 200px;
+            font-family: monospace;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            height: 400px; /* Limite de altura */
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 0px;
+        }
+
+        .button-container button {
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #E98C42;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #218838;
+        }
+
+        .clear-button {
+            background-color: #dc3545;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333;
+        }
+
+        .ementa-button {
+            background-color: #EE8630;
+            color: black;
+            font-weight: bold;
+        }
+
+        .ementa-button:hover {
+            background-color: #d77a29;
+        }
+
+        .separator {
+            margin: 0 5px;
+            color: #ccc;
+        }
+
+        .centered-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .centered-image img {
+            width: 1.71cm;
+            height: 1.83cm;
+        }
+
+        .header-text {
+            text-align: center;
+            font-size: 14px;
+            color: #3938FF;
+            margin-top: 10px;
+        }
+
+        .subheader-text {
+            text-align: center;
+            font-size: 12px;
+            color: #00B0E0;
+            margin-top: 5px;
+        }
+
+        .normal-text {
+            color: black;
+        }
+
+        .centered-cursor {
+            text-align: center;
+            color: black;
+        }
+
+        /* Adicionando o espaço de 10px abaixo da barra de cores */
+        .color-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px; /* Adicionando 10px de margem abaixo da barra de cores */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://www.ufsm.br/app/uploads/sites/344/2024/11/Logo_Proplan_UFSM_png.png" alt="Logo" class="logo">
+        <h1>HYPERTEXT MARKUP LANGUAGE  CONVERSOR</h1> 
+    </div>
+
+    <h2>FORMATAÇÃO</h2> 
+    <div class="toolbar-container">
+        <!-- Separador -->
+        <div class="separator">|</div>
+
+        <!-- Botão de Inserir Cabeçalho -->
+        <div class="toolbar">
+            <button onclick="insertCabecalho()">Inserir Cabeçalho</button>
+        </div>
+
+  <!-- Padrão Ementa -->
+        <div class="toolbar">
+            <button onclick="applyEmenta()" class="ementa-button">Padrão Ementa</button>
+        </div>
+
+  <!-- Botão de Inserir Rodapé -->
+        <div class="toolbar">
+            <button onclick="insertRodape()">Rodapé</button>
+        </div>
+
+        <!-- Separador -->
+        <div class="separator">|</div>
+
+        <!-- Barra de Alinhamento -->
+        <div class="alignment-bar">
+            <button onclick="applyAlignment('left')"><i class="fas fa-align-left"></i></button>
+            <button onclick="applyAlignment('center')"><i class="fas fa-align-center"></i></button>
+            <button onclick="applyAlignment('right')"><i class="fas fa-align-right"></i></button>
+            <button onclick="applyAlignment('justify')"><i class="fas fa-align-justify"></i></button>
+        </div>
+
+        <!-- Separador -->
+        <div class="separator">|</div>
+
+        <!-- Barra de Ferramentas -->
+        <div class="toolbar">
+             <button onclick="applyTag('bold')"><i class="fas fa-bold"></i></button>
+    	     <button onclick="applyTag('italic')"><i class="fas fa-italic"></i></button>
+  	     <button onclick="applyTag('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+    	     <button onclick="applyTag('underline')"><i class="fas fa-underline"></i></button>
+    	     <button onclick="applyTag('subscript')"><i class="fas fa-subscript"></i></button>
+    	     <button onclick="applyTag('superscript')"><i class="fas fa-superscript"></i></button>
+
+            <!-- Separador -->
+            <div class="separator">|</div>
+
+            <!-- Barra de Hiperlink -->
+            <div class="toolbar">
+                <button onclick="applyTag('link')"><i class="fas fa-link"></i></button>
+            </div>
+        </div>
+
+        <!-- Separador -->
+        <div class="separator">|</div>
+
+        <!-- Barra de Recuo -->
+        <div class="indent-bar">
+            <button onclick="applyIndent('left')"><i class="fas fa-outdent"></i> +0.5cm</button>
+            <button onclick="applyIndent('right')"><i class="fas fa-indent"></i> -0.5cm</button>
+        </div>
+
+        <!-- Botões de cores -->
+        <div class="color-bar">
+            <button onclick="applyColor('black')"><i class="fas fa-paint-brush" style="color: black;"></i> Preto</button>                  
+            <button onclick="applyColor('blue')"><i class="fas fa-paint-brush" style="color: blue;"></i> Azul T</button>
+            <button onclick="applyColor('#800000')"><i class="fas fa-paint-brush" style="color: #800000;"></i> Marom B</button>
+            <button onclick="applyColor('red')"><i class="fas fa-paint-brush" style="color: red;"></i> Vermelho</button>
+        </div>
+
+    </div>
+
+    <!-- Editor de Texto (com contenteditable) -->
+    <div id="inputText" class="editor" contenteditable="true" placeholder="Digite ou cole seu texto aqui..."></div>
+    
+    <div class="button-container">
+        <button onclick="convertToHTML()"> ↓ Converter ↓</button>
+        <button onclick="clearText()" class="clear-button">Limpar Tudo</button>
+    </div>
+    
+    <div class="output-container">
+        <div class="code-output" id="codeOutput">O código fonte será exibido aqui.</div>
+    </div>
+
+    <div class="button-container">
+        <button onclick="copyHTML()">Copiar HTML</button>
+    </div>
+
+    <h3>
+        <p> CÓDIGO-FONTE BASE:  Tainá Leão</p>
+        <p> CÓDIGO-FONTE FINAL:  Administrador Igor Ceratti / Administrador Carlo Castellanelli</p>
+    </h3>
+</div>
+
+<script>
+    let indentLevel = 0; // Variável para controlar o nível de recuo.
+
+    function applyAlignment(alignment) {
+        const editor = document.getElementById('inputText');
+        document.execCommand('justify' + alignment);
+    }
+
+    function applyTag(tag) {
+        const editor = document.getElementById('inputText');
+        if (tag === 'link') {
+            const url = prompt("Digite a URL:");
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            const selectedText = selection.toString();
+            const linkHTML = `<a href="${url}" style="color: blue; text-decoration: underline;">${selectedText}</a>`;
+            range.deleteContents();
+            range.insertNode(document.createRange().createContextualFragment(linkHTML));
+        } else {
+            document.execCommand(tag);
+        }
+    }
+
+    function applyIndent(direction) {
+        const editor = document.getElementById('inputText');
+        if (direction === 'left') {
+            document.execCommand('outdent');
+            indentLevel--; // Diminuir o nível de recuo
+        } else {
+            document.execCommand('indent');
+            indentLevel++; // Aumentar o nível de recuo
+        }
+    }
+
+function applyEmenta() {
+    const editor = document.getElementById('inputText');
+    const selectedText = window.getSelection().toString();  // Verifica o texto selecionado
+    
+    if (selectedText.trim() === "") {  // Se não houver texto selecionado, não faz nada
+        return;  // Sai da função, sem fazer alterações
+    }
+    
+    const range = window.getSelection().getRangeAt(0);  // Obtém o intervalo de seleção
+    const ementaHTML = `<span style="color:#800000; display:block; text-align:justify; margin-left: 9cm;">${selectedText}</span>`;
+    range.deleteContents();
+    range.insertNode(document.createRange().createContextualFragment(ementaHTML));
+}
+
+function insertCabecalho() {
+        const editor = document.getElementById('inputText');
+        const imgTag = '<div align="center"><img src="https://www.ufsm.br/pro-reitorias/proplan/wp-content/uploads/sites/344/2019/09/brasao-da-republica-do-brasil-logo.png" alt="Brasão República Federativa do Brasil" width="6%" height="6%"></div>';
+        const texto1 = '<h4><font color="blue"><font size="5"><div align="center">MINISTÉRIO DA EDUCAÇÃO</font></font></div></h4>';
+        const texto2 = '<p><b><font color="0000blue"><div align="center">UNIVERSIDADE FEDERAL DE SANTA MARIA</font></b></div></p>';
+        const texto3 = '<br><div class="normal-text" style="color: black; text-align: center;"></div>';
+        const texto4 = '<div class="normal-text" style="text-align: center;"></div>';
+        
+        document.execCommand('insertHTML', false, imgTag + texto1 + texto2 + texto3 + texto4);
+    }
+
+function formatHTML(html) { 
+    let formatted = '';
+    let reg = /(>)(<)(\/*)/g;
+    let xml = html.replace(reg, '$1\r\n$2$3'); // Quebra de linha entre as tags
+    xml.split('\r\n').forEach(function(node) {
+        // Adiciona a tag sem qualquer indentação
+        formatted += node + '\r\n';
+    });
+
+    return formatted.trim(); // Remove a última quebra de linha extra
+}
+
+  
+ function convertToHTML() {
+    const editor = document.getElementById('inputText');
+    const output = document.getElementById('codeOutput');
+    let htmlContent = editor.innerHTML;
+
+    // Formatar o HTML antes de exibir
+    let formattedHTML = formatHTML(htmlContent);
+
+    output.textContent = formattedHTML;
+}
+
+    function clearText() {
+        const editor = document.getElementById('inputText');
+        editor.innerHTML = '';
+    }
+
+    function copyHTML() {
+        const output = document.getElementById('codeOutput');
+        navigator.clipboard.writeText(output.textContent).then(() => {
+            alert("HTML copiado para a área de transferência!");
+        });
+    }
+
+    function applyColor(color) {
+        const editor = document.getElementById('inputText');
+        document.execCommand('foreColor', false, color);
+    }
+
+ function insertRodape() {
+        const editor = document.getElementById('inputText');
+        const rodapeTexto = '<p><span style="color: red;">Este texto não substitui o documento original, publicado no Portal de Documentos.</span> Disponível em (insira o link do portal aqui):</p>';
+        document.execCommand('insertHTML', false, rodapeTexto);
+    }
+
+</script>
+
+</body>
+</html>
