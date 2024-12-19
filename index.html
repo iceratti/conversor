@@ -3,449 +3,606 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONVERSOR DE HTML</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* A imagem de fundo ficará atrás de todos os outros elementos */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Calibri';
             margin: 0;
             padding: 0;
             color: #333;
-            position: relative;
             background-color: #f0f4f8;
+            position: relative;
         }
 
-     body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://www.ufsm.br/app/uploads/sites/344/2024/11/AN1_8732-2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; /* Colocando a imagem atrás de todos os outros elementos */
-    opacity: 0.9; /* A imagem ficará com 50% de transparência */
-}
+        /* Imagem de fundo com transparência de 50% */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.ufsm.br/app/uploads/sites/344/2024/11/AN1_8732-2.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            z-index: -1;
+        }
 
         .container {
-            max-width: 1050px;
+            max-width: 1150px;
             margin: 50px auto;
-            background-color: rgba(64, 63, 59, 0.5); /* Novo fundo com 60% de transparência, ajuster o último item */
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: rgba(64, 63, 59, 0.6);
+        }
+
+        .container-interno {
+            width: 90%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 35px;   
+            margin-bottom: 35px;
         }
 
-        .logo {
+        .header .logo {
             width: 300px;
-            height: 200px;
-            object-fit: contain;
+            height: auto;
             margin-bottom: 15px;
         }
 
         h1 {
             text-align: center;
-            font-size: 40px;
+            font-size: 30px;
             font-weight: bold;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
             color: #c99436;
         }
 
         h2 {
             text-align: center;
-            font-size: 25px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-            font-family: 'Arial', sans-serif;
-            padding: 10px;
-            color: #0168A6;
+            font-size: 30px;
+            font-weight: bold;
+            color: #DD7F3B;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         h3 {
             text-align: center;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            color: #FAFAFA;
-          
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-       h4 {
-            text-align: center;
-            color: #000;
-        }
-        .editor {
+        /* Estilos para as caixas de texto */
+        .input-box textarea {
             width: 100%;
-            height: 350px;
+            max-width: 650px; /* Limita a largura máxima */
+            height: 40px;
+            margin: 10px auto;
             padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+            background-color: #f5f7fa;
+            font-family: 'Calibri', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .input-box textarea {
+                width: 90%; /* Para telas pequenas, a largura fica maior */
+            }
+        }
+
+        /* Estilos para a caixa Nome do Ato */
+        #nomeAto {
+            width: 65%;
+            height: 20px;
+            margin-top: 20px;
+            margin-right:50px;
+            margin-bottom: 10px;
+            margin-left: 200px; 
+            border: 0px solid #ddd;
+        }
+
+        /* Estilos para a caixa Ementa */
+        #ementa {
+            width: 65%;
+            height: 60px;
+            margin-top: 5px;
+            margin-right: 15px;
             margin-bottom: 20px;
-            font-size: 14px;
+            margin-left: 340px;
+            border: 0px solid #ddd;
+        }
+
+        /* Estilos para o editor de texto */
+        #normativo {
+            width: 98%;
+            height: 100%;  /* Ajusta a altura para ocupar toda a área disponível */
+            min-height: 300px;  /* Define uma altura mínima, caso o conteúdo seja pequeno */
             border: 1px solid #ddd;
             border-radius: 12px;
-            resize: vertical;
             background-color: #f5f7fa;
-            text-align: justify;
-            outline: none;
-            overflow: auto;
-            word-wrap: break-word;
+            padding: 10px;
+            overflow-y: auto;  /* Adiciona a rolagem vertical se o conteúdo exceder a altura */
+            font-size: 12px;
+            font-family: 'Calibri', sans-serif;
+            white-space: normal;  /* Permite quebras de linha conforme o tamanho da caixa */
+            word-wrap: break-word;  /* Quebra palavras longas para que se ajustem dentro da caixa */
+            border: 0px solid #ddd;
         }
 
+        /* Estilos para a caixa Autoridade */
+        #autoridade {
+            width: 98%;
+            height: 50px;
+            margin-top: 5px;
+            margin-right: 5px;
+            margin-bottom: 0px;
+            margin-left: 1px;
+            border: 0px solid #ddd;
+        }
+
+        /* Estilos para a caixa Publicação Original */
+        #publicacaoOriginal {
+            width: 98%;
+            height: 30px;
+            margin-top: 0px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            margin-left: 1px;
+            border: 0px solid #ddd;
+        }
+      /* Estilos para a caixa Cargo */
+        #cargo {
+            width: 98%;
+            height: 30px;
+            margin-top: 0px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            margin-left: 1px;
+            border: 0px solid #ddd;
+        }
+
+        /* Barra de Ferramentas */
         .toolbar-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 3px; /* Adicionando espaçamento entre os botões */
+            margin-bottom: 10px;
         }
 
-        .toolbar, .alignment-bar, .indent-bar, .color-bar {
-            display: flex;
-            gap: 5px; /* Espaçamento entre os botões */
-        }
+/* Estilos para a área de saída HTML (htmlOutput) */
+    #htmlOutput {
+        width: 100%;
+        
+        height: 200px;  /* Definir uma altura fixa */
+        margin: 20px auto; /* Centralizar na página com margens */
+        margin-top: 0px;        
+        margin-bottom: 0px;
+        padding: 10px;
+        border: 1px solid #ddd; /* Borda suave */
+        border-radius: 8px; /* Bordas arredondadas */
+        background-color: #f4f4f4; /* Fundo claro para o quadro */
+        color: #333; /* Cor do texto */
+        font-family: 'Calibri', sans-serif; /* Calibri em HTML Output */
+        font-size: 12px; /* Tamanho da fonte */
+        overflow-y: auto; /* Permite rolagem vertical se o conteúdo for grande */
+        white-space: pre-wrap; /* Mantém a formatação de espaços em branco e quebras de linha */
+        word-wrap: break-word; /* Quebra palavras longas para caber na linha */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar o quadro */
+    }
 
-        .toolbar button, .alignment-bar button, .indent-bar button, .color-bar button {
-            padding: 10px 15px;
-            font-size: 10px;
-            border: 1px solid #000;
-            border-radius: 4px;
+    /* Ajustes responsivos para telas pequenas */
+    @media (max-width: 768px) {
+        #htmlOutput {
+            width: 90%; /* Ajusta a largura para telas menores */
+            height: 150px; /* Menor altura em telas pequenas */
+        }
+    }
+
+        .alignment-bar button, .toolbar button, .indent-bar button, .color-bar button {
+            font-size: 12px;
+            padding: 5px 10px;
             cursor: pointer;
-            background-color: #E9F9FF;
-            color: black;
-            transition: background-color 0.3s ease;
-            height: 30px; /* Definindo altura fixa para todos os botões */
-        }
-
-        .toolbar button:hover, .alignment-bar button:hover, .indent-bar button:hover, .color-bar button:hover {
-            background-color: #3498db;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 5px;
         }
 
         .separator {
+            display: inline-block;
             margin: 0 10px;
-            color: #ccc;
+            font-size: 18px;
         }
 
-        .output-container {
+        .copy-button, .download-button, .convert-button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #218838;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+       .convert-button {
+            margin-top: 0px;
+            padding: 10px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+.download-dou-button {
+            margin-top: 0px;
+            padding: 10px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Cor de transição */
+        .copy-button:hover, .download-button:hover, .convert-button:hover {
+            background-color: black;
+        }
+
+        /* Centraliza os botões */
+        .button-container {
+            text-align: center;
             margin-top: 20px;
         }
 
-        .code-output {
-            border: 1px solid #ddd;
-            padding: 12px;border-radius: 10px;
-            background-color: #fafafa;
-            min-height: 200px;
-            font-family: monospace;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            height: 400px; /* Limite de altura */
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 0px;
-        }
-
-        .button-container button {
-            padding: 15px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            background-color: #E98C42;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-
-        .button-container button:hover {
-            background-color: #218838;
-        }
-
-        .clear-button {
-            background-color: #dc3545;
-        }
-
-        .clear-button:hover {
-            background-color: #c82333;
-        }
-
-        .ementa-button {
-            background-color: #EE8630;
-            color: black;
-            font-weight: bold;
-        }
-
-        .ementa-button:hover {
-            background-color: #d77a29;
-        }
-
-        .separator {
-            margin: 0 5px;
-            color: #ccc;
-        }
-
-        .centered-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .centered-image img {
-            width: 1.71cm;
-            height: 1.83cm;
-        }
-
-        .header-text {
-            text-align: center;
-            font-size: 14px;
-            color: #3938FF;
-            margin-top: 10px;
-        }
-
-        .subheader-text {
-            text-align: center;
-            font-size: 12px;
-            color: #00B0E0;
-            margin-top: 5px;
-        }
-
-        .normal-text {
-            color: black;
-        }
-
-        .centered-cursor {
-            text-align: center;
-            color: black;
-        }
-
-        /* Adicionando o espaço de 10px abaixo da barra de cores */
-        .color-bar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px; /* Adicionando 10px de margem abaixo da barra de cores */
-        }
 
     </style>
 </head>
 <body>
 
+
+
 <div class="container">
     <div class="header">
         <img src="https://www.ufsm.br/app/uploads/sites/344/2024/11/Logo_Proplan_UFSM_png.png" alt="Logo" class="logo">
-        <h1>HYPERTEXT MARKUP LANGUAGE  CONVERSOR</h1> 
+        <h2>HYPERTEXT MARKUP LANGUAGE CONVERSOR</h2>
     </div>
 
-    <h2>FORMATAÇÃO</h2> 
-    <div class="toolbar-container">
-        <!-- Separador -->
-        <div class="separator">|</div>
+    <div class="container-interno">
 
-        <!-- Botão de Inserir Cabeçalho -->
-        <div class="toolbar">
-            <button onclick="insertCabecalho()">Inserir Cabeçalho</button>
+<!-- Inclusão automática do conteúdo solicitado no início -->
+<div align="center"><img src="https://www.ufsm.br/pro-reitorias/proplan/wp-content/uploads/sites/344/2019/09/brasao-da-republica-do-brasil-logo.png" alt="Brasão República Federativa do Brasil" width="6%" height="6%"></div>
+<h1><font color="blue"><font size="5"><div align="center">MINISTÉRIO DA EDUCAÇÃO</div></font></font></h1>
+<p><b><font color="0000blue"><div align="center">UNIVERSIDADE FEDERAL DE SANTA MARIA</b></div></font></p>
+        <div class="input-box">
+            <textarea id="nomeAto" class="editor" placeholder="Digite o Nome do Ato..." oninput="formatNomeAto()"></textarea>
         </div>
 
-  <!-- Padrão Ementa -->
-        <div class="toolbar">
-            <button onclick="applyEmenta()" class="ementa-button">Padrão Ementa</button>
+        <div class="input-box">
+            <textarea id="ementa" class="editor" placeholder="Digite o texto da Ementa..."></textarea>
         </div>
 
-  <!-- Botão de Inserir Rodapé -->
-        <div class="toolbar">
-            <button onclick="insertRodape()">Rodapé</button>
-        </div>
+        <!-- Barra de ferramentas -->
+        <div class="toolbar-container">
+            <div class="alignment-bar">
+                <button onclick="applyAlignment('left')"><i class="fas fa-align-left"></i></button>
+                <button onclick="applyAlignment('center')"><i class="fas fa-align-center"></i></button>
+                <button onclick="applyAlignment('right')"><i class="fas fa-align-right"></i></button>
+                <button onclick="applyAlignment('justify')"><i class="fas fa-align-justify"></i></button>
 
-        <!-- Separador -->
-        <div class="separator">|</div>
-
-        <!-- Barra de Alinhamento -->
-        <div class="alignment-bar">
-            <button onclick="applyAlignment('left')"><i class="fas fa-align-left"></i></button>
-            <button onclick="applyAlignment('center')"><i class="fas fa-align-center"></i></button>
-            <button onclick="applyAlignment('right')"><i class="fas fa-align-right"></i></button>
-            <button onclick="applyAlignment('justify')"><i class="fas fa-align-justify"></i></button>
-        </div>
-
-        <!-- Separador -->
-        <div class="separator">|</div>
-
-        <!-- Barra de Ferramentas -->
-        <div class="toolbar">
-             <button onclick="applyTag('bold')"><i class="fas fa-bold"></i></button>
-    	     <button onclick="applyTag('italic')"><i class="fas fa-italic"></i></button>
-  	     <button onclick="applyTag('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-    	     <button onclick="applyTag('underline')"><i class="fas fa-underline"></i></button>
-    	     <button onclick="applyTag('subscript')"><i class="fas fa-subscript"></i></button>
-    	     <button onclick="applyTag('superscript')"><i class="fas fa-superscript"></i></button>
-
-            <!-- Separador -->
             <div class="separator">|</div>
 
-            <!-- Barra de Hiperlink -->
-            <div class="toolbar">
-                <button onclick="applyTag('link')"><i class="fas fa-link"></i></button>
+                <button onclick="applyTag('bold')"><i class="fas fa-bold"></i></button>
+                <button onclick="applyTag('italic')"><i class="fas fa-italic"></i></button>
+                <button onclick="applyTag('underline')"><i class="fas fa-underline"></i></button>
+
+            <div class="separator">|</div>
+
+                <button onclick="applyIndent('left')"><i class="fas fa-outdent"></i> +0.5cm</button>
+                <button onclick="applyIndent('right')"><i class="fas fa-indent"></i> -0.5cm</button>
+
+                <button onclick="applyColor('black')"><i class="fas fa-paint-brush" style="color: black;"></i> Preto</button>   
+                <button onclick="applyColor('red')"><i class="fas fa-paint-brush" style="color: red;"></i> Vermelho</button>    
+                <button onclick="applyColor('brown')"><i class="fas fa-paint-brush" style="color:#800000;"></i> Marrom Bombom</button>   
+                <button onclick="applyColor('blue')"><i class="fas fa-paint-brush" style="color: blue;"></i> Azul Taiani</button>    
+            
+
+            <!-- Novo botão de link -->
+            <div class="separator">|</div>
+            <button onclick="addLink()"><i class="fas fa-link"></i> </button>
             </div>
         </div>
 
-        <!-- Separador -->
-        <div class="separator">|</div>
+        <!-- Editor de texto -->
+        <div contenteditable="true" id="normativo" class="editor"></div>
 
-        <!-- Barra de Recuo -->
-        <div class="indent-bar">
-            <button onclick="applyIndent('left')"><i class="fas fa-outdent"></i> +0.5cm</button>
-            <button onclick="applyIndent('right')"><i class="fas fa-indent"></i> -0.5cm</button>
+        <!-- Caixa de texto para "Autoridade" com apenas a formatação CSS do editor -->
+        <div class="input-box">
+            <textarea id="autoridade" class="editor" placeholder="Digite a Autoridade..."></textarea>
+        </div>
+<!-- Caixa de texto para "Cargo" com apenas a formatação CSS do editor -->
+        <div class="input-box">
+            <textarea id="cargo" class="editor" placeholder="Digite a Cargo..."></textarea>
+        </div>
+        <!-- Caixa de texto para "Publicação Original" com apenas a formatação CSS do editor -->
+        <div class="input-box">
+            <textarea id="publicacaoOriginal" class="editor" placeholder="Digite a Publicação Original..."></textarea>
+        </div>
+</div>
+
+
+        <!-- Botão para Converter em HTML -->
+        <div class="button-container">
+            <button class="convert-button" onclick="convertToHTML()">↓ Converter em HTML ↓</button>
+            <button class="download-dou-button" onclick="downloadFormattedText()">Download DOU</button>
+
         </div>
 
-        <!-- Botões de cores -->
-        <div class="color-bar">
-            <button onclick="applyColor('black')"><i class="fas fa-paint-brush" style="color: black;"></i> Preto</button>                  
-            <button onclick="applyColor('blue')"><i class="fas fa-paint-brush" style="color: blue;"></i> Azul T</button>
-            <button onclick="applyColor('#800000')"><i class="fas fa-paint-brush" style="color: #800000;"></i> Marom B</button>
-            <button onclick="applyColor('red')"><i class="fas fa-paint-brush" style="color: red;"></i> Vermelho</button>
+        <div class="button-container">
+            <textarea id="htmlOutput" placeholder="O código gerado será exibido aqui." readonly></textarea>
         </div>
 
-    </div>
+        <!-- Botões Copiar e Download -->
+        <div class="button-container">
+            <button class="copy-button" onclick="copyHTML()">Copiar HTML</button>
+            <button class="download-button" onclick="downloadHTML()">Download HTML</button>
+        </div>
 
-    <!-- Editor de Texto (com contenteditable) -->
-    <div id="inputText" class="editor" contenteditable="true" placeholder="Digite ou cole seu texto aqui..."></div>
+
     
-    <div class="button-container">
-        <button onclick="convertToHTML()"> ↓ Converter ↓</button>
-        <button onclick="clearText()" class="clear-button">Limpar Tudo</button>
-    </div>
-    
-    <div class="output-container">
-        <div class="code-output" id="codeOutput">O código fonte será exibido aqui.</div>
-    </div>
-
-    <div class="button-container">
-        <button onclick="copyHTML()">Copiar HTML</button>
-    </div>
-
-    <h3>
-        <p> CÓDIGO-FONTE BASE:  Tainá Leão</p>
-        <p> CÓDIGO-FONTE FINAL:  Administrador Igor Ceratti / Administrador Carlo Castellanelli</p>
-    </h3>
 </div>
 
 <script>
-    let indentLevel = 0; // Variável para controlar o nível de recuo.
-
-    function applyAlignment(alignment) {
-        const editor = document.getElementById('inputText');
-        document.execCommand('justify' + alignment);
-    }
-
-    function applyTag(tag) {
-        const editor = document.getElementById('inputText');
-        if (tag === 'link') {
-            const url = prompt("Digite a URL:");
-            const selection = window.getSelection();
-            const range = selection.getRangeAt(0);
-            const selectedText = selection.toString();
-            const linkHTML = `<a href="${url}" style="color: blue; text-decoration: underline;">${selectedText}</a>`;
-            range.deleteContents();
-            range.insertNode(document.createRange().createContextualFragment(linkHTML));
-        } else {
-            document.execCommand(tag);
-        }
-    }
-
-    function applyIndent(direction) {
-        const editor = document.getElementById('inputText');
-        if (direction === 'left') {
-            document.execCommand('outdent');
-            indentLevel--; // Diminuir o nível de recuo
-        } else {
-            document.execCommand('indent');
-            indentLevel++; // Aumentar o nível de recuo
-        }
-    }
-
-function applyEmenta() {
-    const editor = document.getElementById('inputText');
-    const selectedText = window.getSelection().toString();  // Verifica o texto selecionado
-    
-    if (selectedText.trim() === "") {  // Se não houver texto selecionado, não faz nada
-        return;  // Sai da função, sem fazer alterações
-    }
-    
-    const range = window.getSelection().getRangeAt(0);  // Obtém o intervalo de seleção
-    const ementaHTML = `<span style="color:#800000; display:block; text-align:justify; margin-left: 9cm;">${selectedText}</span>`;
-    range.deleteContents();
-    range.insertNode(document.createRange().createContextualFragment(ementaHTML));
+// Função para aplicar formatação
+function applyTag(tag) {
+    document.execCommand(tag, false, null);
 }
 
-function insertCabecalho() {
-        const editor = document.getElementById('inputText');
-        const imgTag = '<div align="center"><img src="https://www.ufsm.br/pro-reitorias/proplan/wp-content/uploads/sites/344/2019/09/brasao-da-republica-do-brasil-logo.png" alt="Brasão República Federativa do Brasil" width="6%" height="6%"></div>';
-        const texto1 = '<h4><font color="blue"><font size="5"><div align="center">MINISTÉRIO DA EDUCAÇÃO</font></font></div></h4>';
-        const texto2 = '<p><b><font color="0000blue"><div align="center">UNIVERSIDADE FEDERAL DE SANTA MARIA</font></b></div></p>';
-        const texto3 = '<br><div class="normal-text" style="color: black; text-align: center;"></div>';
-        const texto4 = '<div class="normal-text" style="text-align: center;"></div>';
-        
-        document.execCommand('insertHTML', false, imgTag + texto1 + texto2 + texto3 + texto4);
-    }
-
-function formatHTML(html) { 
-    let formatted = '';
-    let reg = /(>)(<)(\/*)/g;
-    let xml = html.replace(reg, '$1\r\n$2$3'); // Quebra de linha entre as tags
-    xml.split('\r\n').forEach(function(node) {
-        // Adiciona a tag sem qualquer indentação
-        formatted += node + '\r\n';
-    });
-
-    return formatted.trim(); // Remove a última quebra de linha extra
+// Função para aplicar alinhamento
+function applyAlignment(alignment) {
+    document.execCommand('justify' + alignment, false, null);
 }
 
-  
- function convertToHTML() {
-    const editor = document.getElementById('inputText');
-    const output = document.getElementById('codeOutput');
-    let htmlContent = editor.innerHTML;
-
-    // Formatar o HTML antes de exibir
-    let formattedHTML = formatHTML(htmlContent);
-
-    output.textContent = formattedHTML;
+// Função para aplicar indentação
+function applyIndent(direction) {
+    document.execCommand(direction + 'Indent', false, null);
 }
 
-    function clearText() {
-        const editor = document.getElementById('inputText');
-        editor.innerHTML = '';
+// Função para aplicar cor ao texto
+function applyColor(color) {
+    document.execCommand('foreColor', false, color);
+}
+
+// Função para adicionar link
+function addLink() {
+    const linkURL = prompt('Digite a URL do link:');
+    if (linkURL) {
+        document.execCommand('createLink', false, linkURL);
+    }
+}
+
+
+
+// Função para converter o conteúdo para HTML com indentação
+function convertToHTML() {
+    const nomeAto = document.getElementById('nomeAto').value;
+    const ementa = document.getElementById('ementa').value;
+    const normativo = document.getElementById('normativo').innerHTML; // Conteúdo do editor
+    const autoridade = document.getElementById('autoridade').value;
+const cargo= document.getElementById('cargo').value;
+    const publicacaoOriginal = document.getElementById('publicacaoOriginal').value;
+
+    // Transformando o nomeAto em um link, caso haja URL
+    let nomeAtoContent = nomeAto;
+    if (publicacaoOriginal) {
+        nomeAtoContent = `<a href="${publicacaoOriginal}" target="_blank">${nomeAto}</a>`;
     }
 
-    function copyHTML() {
-        const output = document.getElementById('codeOutput');
-        navigator.clipboard.writeText(output.textContent).then(() => {
-            alert("HTML copiado para a área de transferência!");
+    // Gerando HTML com conteúdo fixo + os dados inseridos
+    let htmlContent = `
+<!-- Cabeçalho -->
+<div align="center"><img src="https://www.ufsm.br/pro-reitorias/proplan/wp-content/uploads/sites/344/2019/09/brasao-da-republica-do-brasil-logo.png" alt="Brasão República Federativa do Brasil" width="6%" height="6%"></div>
+<h1><font color="blue"><font size="5"><div align="center">MINISTÉRIO DA EDUCAÇÃO</div></font></font></h1>
+<p><b><font color="0000blue"><div align="center">UNIVERSIDADE FEDERAL DE SANTA MARIA</b></div></font></p>
+<p><div align="center"><b><a href="${publicacaoOriginal}" target="_blank"><font color="blue">${nomeAto}</font></a></b></div></p>
+<br>
+
+
+<!-- Ementa -->
+<p style="margin-left: 9cm; text-align: justify; color: #800000;">${ementa}</p>
+
+<!-- Normativo -->
+<div align="justify"> ${normativo}</div>
+<div>${autoridade}</div>
+<div>${cargo}</div>
+
+<!-- Modificação para a Publicação Original -->
+<p><font color="red">Este texto não substitui o documento original, publicado no Portal de Documentos.</font>
+Disponível em: <a href="${publicacaoOriginal}" target="_blank"><font color="blue">${publicacaoOriginal}</font></a></p>
+`;
+
+    // Indentando o HTML gerado para ficar mais legível
+    htmlContent = indentHTML(htmlContent);
+
+    // Exibindo o HTML gerado na caixa de saída
+    document.getElementById('htmlOutput').value = htmlContent;
+}
+
+// Função para aplicar indentação no HTML
+function indentHTML(html) {
+    const tab = "    "; // Define a indentação (4 espaços por tabulação)
+    let indentLevel = 0;
+
+    return html.replace(/</g, "\n<").replace(/\n<\/(.*?)>/g, function (match, tag) {
+        let indent = '';
+        const result = match.replace(/<\/?([a-z0-9\-]+)[^>]*>/gi, function (fullTag) {
+            const isClosingTag = fullTag.startsWith('</');
+            if (!isClosingTag) {
+                indent = tab.repeat(indentLevel);
+                indentLevel++;
+            } else {
+                indentLevel--;
+            }
+            return `${indent}${fullTag}`;
         });
+        return result;
+    });
+}
+// Função para copiar o HTML gerado
+function copyHTML() {
+    const htmlContent = document.getElementById('htmlOutput').value;
+    navigator.clipboard.writeText(htmlContent).then(() => {
+        alert('HTML copiado para a área de transferência!');
+    }).catch(err => {
+        alert('Erro ao copiar HTML: ' + err);
+    });
+}
+
+// Função para download do HTML em .txt
+function downloadHTML() {
+    const htmlContent = document.getElementById('htmlOutput').value;
+    const blob = new Blob([htmlContent], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'html_converted.txt';
+    link.click();
+}
+
+// Função para aplicar formatação no #nomeAto
+function formatNomeAto() {
+    const nomeAtoElement = document.getElementById('nomeAto');
+    nomeAtoElement.style.textAlign = 'center';  // Centraliza o texto
+    nomeAtoElement.style.color = 'blue';        // Define a cor azul
+    nomeAtoElement.style.fontWeight = 'bold';   // Aplica o negrito
+
+}
+
+// Função para aplicar alinhamento
+function applyAlignment(alignment) {
+    const editor = document.getElementById('normativo');
+    if (alignment === 'left') {
+        editor.style.textAlign = 'left';
+    } else if (alignment === 'center') {
+        editor.style.textAlign = 'center';
+    } else if (alignment === 'right') {
+        editor.style.textAlign = 'right';
+    } else if (alignment === 'justify') {
+        editor.style.textAlign = 'justify';
+    }
+}
+
+function applyIndent(direction) {
+    // Direção 'left' significa diminuir a indentação, 'right' aumenta
+    document.execCommand(direction === 'left' ? 'outdent' : 'indent', false, null);
+}
+
+function downloadRTF() {
+    const nomeAto = document.getElementById('nomeAto').value;
+    const ementa = document.getElementById('ementa').value;
+    const normativo = document.getElementById('normativo').innerHTML;
+    const autoridade = document.getElementById('autoridade').value;
+    const cargo = document.getElementById('cargo').value;
+    const publicacaoOriginal = document.getElementById('publicacaoOriginal').value;
+
+    // Criando o código RTF
+    let rtfContent = `{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Calibri;}}`
+        + `\\viewkind4\\uc1\\pard\\sa200\\sl276\\slmult1\\f0\\fs9\\lang22`;
+
+    rtfContent += `\\b ##ATO \\b0 ${nomeAto}\\par`;
+
+    if (ementa) {
+        rtfContent += `\\b ##EME \\b0 ${ementa}\\par`;
     }
 
-    function applyColor(color) {
-        const editor = document.getElementById('inputText');
-        document.execCommand('foreColor', false, color);
+    rtfContent += `\\b ##TEX \\b0 ${normativo}\\par`;
+
+    if (autoridade) {
+        rtfContent += `\\b ##ASS \\b0 ${autoridade}\\par`;
     }
 
- function insertRodape() {
-        const editor = document.getElementById('inputText');
-        const rodapeTexto = '<p><span style="color: red;">Este texto não substitui o documento original, publicado no Portal de Documentos.</span> Disponível em (insira o link do portal aqui):</p>';
-        document.execCommand('insertHTML', false, rodapeTexto);
+    if (cargo) {
+        rtfContent += `\\b ##CAR \\b0 ${cargo}\\par`;
     }
+
+    const data = new Date();
+    rtfContent += `\\b ##DAT: \\b0 ${data.toLocaleDateString('pt-BR')}\\par`;
+
+    if (publicacaoOriginal) {
+        rtfContent += `\\b ##ANE: \\b0 ${publicacaoOriginal}\\par`;
+    }
+
+    rtfContent += `}`;
+
+    // Criando o arquivo RTF para download
+    const blob = new Blob([rtfContent], { type: 'application/rtf' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'documento_formatado.rtf';
+    link.click();
+}
+
+function downloadFormattedText() {
+    const nomeAto = document.getElementById('nomeAto').value;
+    const ementa = document.getElementById('ementa').value;
+    const normativo = document.getElementById('normativo').innerHTML;
+    const autoridade = document.getElementById('autoridade').value;
+    const cargo = document.getElementById('cargo').value;
+    const publicacaoOriginal = document.getElementById('publicacaoOriginal').value;
+
+    // Definindo o formato de saída exigido pelo DOU
+    let formattedContent = '';
+
+    // Adicionando o nome do ato
+    formattedContent += `##ATO ${nomeAto}\n`;
+
+    // Adicionando a ementa (se aplicável)
+    if (ementa) {
+        formattedContent += `##EME ${ementa}\n`;
+    }
+
+    // Adicionando o texto do ato
+    formattedContent += `##TEX ${normativo}\n`;
+
+    // Adicionando a autoridade
+    if (autoridade) {
+        formattedContent += `##ASS ${autoridade}\n`;
+    }
+
+    // Adicionando o cargo da autoridade
+    if (cargo) {
+        formattedContent += `##CAR ${cargo}\n`;
+    }
+
+    // Adicionando a data (supondo que você tenha uma data para o ato, caso contrário, insira uma data fixa)
+    const data = new Date();
+    formattedContent += `##DAT ${data.toLocaleDateString('pt-BR')}\n`;
+
+    // Adicionando a publicação original
+    if (publicacaoOriginal) {
+        formattedContent += `##ANE ${publicacaoOriginal}\n`;
+    }
+
+    // Criando o arquivo de texto para download
+    const blob = new Blob([formattedContent], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'documento_formatado.txt';
+    link.click();
+}
 
 </script>
-
 </body>
 </html>
