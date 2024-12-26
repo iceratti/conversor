@@ -399,6 +399,16 @@ function addLink() {
     const linkURL = prompt('Digite a URL do link:');
     if (linkURL) {
         document.execCommand('createLink', false, linkURL);
+
+        // Seleciona o link recém-criado e aplica o estilo
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            const anchor = selection.focusNode.parentElement;
+            if (anchor && anchor.tagName === 'A') {
+                anchor.style.color = 'blue';
+                anchor.style.textDecoration = 'underline';
+            }
+        }
     }
 }
 
